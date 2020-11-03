@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('test') {
-                	sh 'docker build -t swl68/toolbox:latest . '
+                	sh 'docker build . '
                 }
             }
         }
