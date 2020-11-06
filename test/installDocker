@@ -1,0 +1,51 @@
+#!groovy
+// Try to install docker for Ubuntu
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("1 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'apt-get remove docker docker-engine docker.io containerd runc\''
+            }
+        }
+        stage("2 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'apt-get update\''
+            }
+        }
+        stage("3 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common\''
+            }
+        }
+        stage("4 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -\''
+            }
+        }
+        stage("5 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"\''
+            }
+        }
+        stage("6 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'apt-get update\''
+            }
+        }
+        stage("7 step") {
+            steps {
+                sh 'ssh root@192.168.100.6 \'apt-get install docker-ce docker-ce-cli containerd.io\''
+            }
+        }
+        
+    }
+}
