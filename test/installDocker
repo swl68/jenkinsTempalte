@@ -13,12 +13,12 @@ pipeline {
     stages {
         stage("1 step") {
             steps {
-                sh 'apt-get remove docker docker-engine docker.io containerd runc'
+                sh 'sudo apt-get remove docker docker-engine docker.io containerd runc'
             }
         }
         stage("2 step") {
             steps {
-                sh 'apt-get update'
+                sh 'sudo apt-get update'
             }
         }
         stage("3 step") {
