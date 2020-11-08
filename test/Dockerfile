@@ -1,5 +1,5 @@
-FROM alpine
-RUN apk add --no-cache curl wget busybox-extras netcat-openbsd python py-pip bash && \
-    pip install awscli
-RUN apk --purge -v del py-pip
-CMD tail -f /dev/null
+FROM ubuntu:16.04
+RUN apt-get update 
+RUN apt-get install python3
+CMD echo 'python3 installed'
+CMD systemctl status python
